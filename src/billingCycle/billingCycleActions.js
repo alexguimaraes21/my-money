@@ -4,10 +4,10 @@ import { reset as resetForm, initialize } from 'redux-form'
 import { showTabs, selectTab } from '../common/tab/tabActions'
 
 const BASE_URL = 'http://localhost:3003/api'
-const INITIAL_VALUES = {credits: [{}]}
+const INITIAL_VALUES = {credits: [{}], debts: [{}]}
 
 export function getList() {
-    const request = axios.get( `${ BASE_URL }/billingCycles` )
+    const request = axios.get(`${BASE_URL}/billingCycles`)
     return {
         type: 'BILLING_CYCLES_FETCHED',
         payload: request
@@ -29,21 +29,19 @@ export function remove(values) {
 function submit(values, method) {
     return dispatch => {
         const id = values._id ? values._id : ''
-        axios[method]( `${BASE_URL}/billingCycles/${id}`, values )
+        axios[method](`${BASE_URL}/billingCycles/${id}`, values)
             .then(resp => {
-                toastr.success('Sucesso', 'Operação realizada com sucesso.')
+                toastr.success('Sucesso', 'Operação Realizada com sucesso.')
                 dispatch(init())
             })
             .catch(e => {
-                console.log(e.response.data.errors)
                 e.response.data.errors.forEach(error => toastr.error('Erro', error))
             })
     }
 }
 
 export function showUpdate(billingCycle) {
-    // FIXME: Criar método Genérico para listar as abas que fique dinâmico
-    return [
+    return [ 
         showTabs('tabUpdate'),
         selectTab('tabUpdate'),
         initialize('billingCycleForm', billingCycle)
@@ -51,7 +49,7 @@ export function showUpdate(billingCycle) {
 }
 
 export function showDelete(billingCycle) {
-    return [
+    return [ 
         showTabs('tabDelete'),
         selectTab('tabDelete'),
         initialize('billingCycleForm', billingCycle)

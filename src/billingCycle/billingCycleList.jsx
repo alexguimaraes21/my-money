@@ -12,19 +12,17 @@ class BillingCycleList extends Component {
     renderRows() {
         const list = this.props.list || []
         return list.map(bc => (
-            <tr key={ bc._id }>
-                <td>{ bc.name }</td>
-                <td>{ bc.month }</td>
-                <td>{ bc.year }</td>
+            <tr key={bc._id}>
+                <td>{bc.name}</td>
+                <td>{bc.month}</td>
+                <td>{bc.year}</td>
                 <td>
-                    <div className='btn-group'>
-                        <button className="btn btn-xs btn-warning" onClick={() => this.props.showUpdate(bc)}>
-                            <i className="fa fa-pencil"></i>
-                        </button>
-                        <button className="btn btn-xs btn-danger" onClick={() => this.props.showDelete(bc)}>
-                            <i className="fa fa-trash-o"></i>
-                        </button>
-                    </div>
+                    <button className='btn btn-warning' onClick={() => this.props.showUpdate(bc)}>
+                        <i className='fa fa-pencil'></i>
+                    </button>
+                    <button className='btn btn-danger' onClick={() => this.props.showDelete(bc)}>
+                        <i className='fa fa-trash-o'></i>
+                    </button>
                 </td>
             </tr>
         ))
@@ -43,7 +41,7 @@ class BillingCycleList extends Component {
                         </tr>
                     </thead>
                     <tbody>
-                        { this.renderRows() }
+                        {this.renderRows()}
                     </tbody>
                 </table>
             </div>
@@ -51,8 +49,6 @@ class BillingCycleList extends Component {
     }
 }
 
-const mapStateToProps = state => ({ list: state.billingCycle.list })
-const mapDispatchToProps = dispatch => bindActionCreators({ getList, showUpdate, showDelete }, dispatch)
+const mapStateToProps = state => ({list: state.billingCycle.list})
+const mapDispatchToProps = dispatch => bindActionCreators({getList, showUpdate, showDelete}, dispatch)
 export default connect(mapStateToProps, mapDispatchToProps)(BillingCycleList)
-// export default connect(mapDispatchToProps)(BillingCycleList)
-// export default BillingCycleList
